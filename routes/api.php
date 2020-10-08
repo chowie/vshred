@@ -19,5 +19,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware('auth:sanctum')->get('/user/images', function (Request $request) {
-    return 'hello world';
+    return \App\Models\UserImage::where('user_id', $request->user()->id)->get();
 });
