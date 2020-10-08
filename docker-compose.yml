@@ -1,0 +1,43 @@
+version: "3"
+networks:
+    app-tier:
+        driver: bridge
+
+services:
+    smtp:
+        container_name: vshred-mailhog
+        image: mailhog/mailhog
+        ports:
+            - "1025:1025"
+            - "8025:8025"
+        networks:
+            - app-tier
+        environment:
+            TZ: "America/Detroit"
+            command: >
+                apk --update add curl bash nano tzdata && >
+                cp /usr/share/zoneinfo/Europe/Stockholm /etc/localtime && >
+                echo "Europe/Stockholm" > /etc/timezone && >
+                apk del tzdata && >
+                rm -r /var/cache/apk/* && >
+                mkdir -p /usr/share/zoneinfo/Europe && >
+                ln -s /etc/localtime /usr/share/zoneinfo/Europe/Stockholm
+
+    mysql:
+        container_name: vshred-mysql
+        image: mysql:5.7
+        networks:
+            - app-tier
+        ports:
+            - 13306:3306
+        volumes:
+            - mysql:/var/lib/mysql
+        environment:
+            MYSQL_DATABASE: homestead
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_USER: homestead
+            MYSQL_PASSWORD: secret
+
+volumes:
+  mysql:
+    driver: "local"
