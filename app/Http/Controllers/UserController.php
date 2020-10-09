@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Actions\Fortify\CreateNewUser;
 use App\Models\User;
+use App\Policies\UserPolicy;
 use Illuminate\Http\Request;
 
 class UserController extends Controller

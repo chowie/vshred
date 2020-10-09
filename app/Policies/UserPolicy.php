@@ -25,7 +25,7 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        return true;
+        return false;
     }
 
     /**
@@ -48,6 +48,11 @@ class UserPolicy
      */
     public function create(User $user)
     {
+        Log::debug('create', $user->toArray());
+        if ($user->isAdmin) {
+            return true;
+        }
+
         return true;
     }
 
