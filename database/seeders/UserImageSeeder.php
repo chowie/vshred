@@ -16,8 +16,6 @@ class UserImageSeeder extends Seeder
     {
         $users = User::all();
 
-        dd($users);
-
         /*
          *DB::table('user_images')->insert([
          *]);

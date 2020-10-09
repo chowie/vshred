@@ -21,3 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('auth:sanctum')->get('/user/images', function (Request $request) {
     return \App\Models\UserImage::where('user_id', $request->user()->id)->get();
 });
+
+Route::middleware('auth:sanctum')->get('/user/{email}/images', function (Request $request, $email) {
+    return \App\Models\User::where('email', $email)->first()->images;
+});
