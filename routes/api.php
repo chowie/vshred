@@ -29,7 +29,7 @@ Route::middleware('auth:sanctum')->get('/user/{email}/images', function (Request
     return \App\Models\User::where('email', $email)->first()->images;
 });
 
-Route::get('/user/index', [UserController::class, 'index'])->middleware('can:viewAny,App\Models\User');
+Route::get('/user/index', [UserController::class, 'index'])->middleware('can:viewAny,App\Models\User')->name('api.user.index');
 Route::post('/user/create', [UserController::class, 'store'])->middleware('can:create,App\Models\User');
 Route::get('/user/{user}/view', [UserController::class, 'view'])->middleware('can:view,user');
 Route::put('/user/{user}/update', [UserController::class, 'update'])->middleware('can:update,user');
