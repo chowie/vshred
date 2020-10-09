@@ -9,7 +9,14 @@
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    users
+                    <table>
+                        <tbody>
+                            <tr v-for="user in users">
+                                <td>{{ user.name }}</td>
+                                <td>{{ user.email }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -23,5 +30,19 @@
         components: {
             AppLayout,
         },
+
+        data() {
+            return {
+                users: [],
+            }
+        },
+
+        mounted() {
+
+            axios.get('/api/user/index').then(response => {
+                this.users = response.data;
+            });
+
+        }
     }
 </script>
